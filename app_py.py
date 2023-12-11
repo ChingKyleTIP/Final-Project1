@@ -1,21 +1,9 @@
 import streamlit as st
 import tensorflow as tf
-import numpy as np
-from PIL import Image, ImageOps
-from tensorflow.keras.preprocessing.image import img_to_array
-from keras.models import load_model
-
-@st.cache(allow_output_mutation=True)
-def load_fashion_model():
-    model = tf.keras.models.load_model('model (1).h5')
-    return model
-
-
-f = io.BytesIO(zf.read('model (1).h5'))
-
-zf = zipfile.ZipFile(io.BytesIO(buffer))
-
-f = io.BytesIO(zf.read('model (1).h5'))
+from tensorflow.keras.preprocessing import image
+from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2,preprocess_input as mobilenet_v2_preprocess_input
+from tensorflow.keras import callbacks,optimizers
+import h5py
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -34,7 +22,7 @@ from PIL import Image,ImageOps
 import numpy as np
 st.set_option('deprecation.showfileUploaderEncoding', False)
 def import_and_predict(image_data, model):
-    size = (224, 224)
+    size = (224, 224)    
     image_object = ImageOps.fit(image_data, size, Image.LANCZOS)
     image_array = np.asarray(image_object)
     image_cv = cv2.cvtColor(image_array, cv2.COLOR_BGR2RGB)
