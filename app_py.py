@@ -9,14 +9,11 @@ Original file is located at
 
 import streamlit as st
 import tensorflow as tf
-
-import h5py, io, zipfile
-
 import h5py, io, zipfile
 
 buffer = bytes()
 
-zip_part_one = open('vgg16-model.zip.001', 'rb')
+zip_part_one = open('model.part01.rar', 'rb')
 zip_part_two = open('vgg16-model.zip.002', 'rb')
 zip_part_three = open('model.zip.003', 'rb')
 zip_part_four = open('model.zip.004', 'rb')
