@@ -13,8 +13,8 @@ import h5py, io, zipfile
 
 buffer = bytes()
 
-zip_part_one = open('model.part01.rar', 'rb')
-zip_part_two = open('vgg16-model.zip.002', 'rb')
+zip_part_one = open('model.part001.rar', 'rb')
+zip_part_two = open('model.part02.rar', 'rb')
 zip_part_three = open('model.zip.003', 'rb')
 zip_part_four = open('model.zip.004', 'rb')
 zip_part_five = open('model.zip.005', 'rb')
