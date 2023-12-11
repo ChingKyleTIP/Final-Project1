@@ -7,9 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1tV1jwA5cXHQTxF5kvXNRlzjTR5dqqTmI
 """
 
-!pip install streamlit
-!pip install pyngrok
-
 import streamlit as st
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
@@ -22,8 +19,8 @@ import h5py, io, zipfile
 
 buffer = bytes()
 
-zip_part_one = open('model.zip.001', 'rb')
-zip_part_two = open('model.zip.002', 'rb')
+zip_part_one = open('vgg16-model.zip.001', 'rb')
+zip_part_two = open('vgg16-model.zip.002', 'rb')
 zip_part_three = open('model.zip.003', 'rb')
 zip_part_four = open('model.zip.004', 'rb')
 zip_part_five = open('model.zip.005', 'rb')
