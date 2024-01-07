@@ -13,6 +13,25 @@ def load_model():
         st.error(f"Error loading the model: {e}")
         return None
 
+def import_and_predict(image_data, model):
+    size = (30, 30)
+    
+    try:
+        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+    except AttributeError:
+        st.error("Error processing the image. Please try again with a different image.")
+        return None
+    
+    img = np.asarray(image)
+    img_reshape = img[np.newaxis, ...]
+    
+    try:
+        prediction = model.predict(img_reshape)
+        return prediction
+    except Exception as e:
+        st.error(f"Error making predictions: {e}")
+        return None
+
 def main():
     st.write("# World of Lego toys classifier")
 
