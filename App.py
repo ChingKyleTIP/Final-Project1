@@ -57,4 +57,5 @@ def main():
                 output_class = class_names[np.argmax(prediction)]
                 st.success(f"OUTPUT: {output_class}")
                 
- if __name__ == '__main__': run()
+if __name__ == "__main__":
+    main()
