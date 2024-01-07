@@ -3,13 +3,14 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
-github_repo_url = "https://github.com/ChingKyleTIP/Final-Project1/edit/main"
+# GitHub repository URL
+github_repo_url = "https://raw.githubusercontent.com/ChingKyleTIP/Final-Project1/main/"
 
 # Add background image CSS
 background_image = f"""
 <style>
     body {{
-        background-image: url('{Final-Project1}Z6_Tokyo.jpg');
+        background-image: url('{github_repo_url}Z6_Tokyo.jpg');
         background-size: cover;
     }}
 </style>
@@ -17,7 +18,6 @@ background_image = f"""
 
 # Display the background image
 st.markdown(background_image, unsafe_allow_html=True)
-
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -68,4 +68,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
