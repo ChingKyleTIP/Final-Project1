@@ -9,9 +9,6 @@ def load_model():
     try:
         model = tf.keras.models.load_model(model_path, compile=False)
         return model
-    except Exception as e:
-        st.error(f"Error loading the model: {e}")
-        return None
 
 def import_and_predict(image_data, model):
     size = (30, 30)
