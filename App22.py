@@ -24,7 +24,7 @@ def import_and_predict(image_data, model):
         image_bytes = image_data.read()
 
         # Open the image using PIL
-        image = Image.open(io.BytesIO(image_bytes))
+        image = Image.open(image_bytes)
 
         if image.mode != 'L':
             image = image.convert('L')
