@@ -3,15 +3,9 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
-@st.cache(allow_output_mutation=True)
 def load_model():
     model_path = 'best_model.hdf5'
-    try:
-        # Try loading as HDF5
-        model = tf.keras.models.load_model(model_path)
-    except (OSError, ValueError):
-        # If failed, try loading as SavedModel
-        model = tf.keras.models.load_model(model_path, compile=False)
+    model = tf.keras.models.load_model(model_path, compile=False)
     return model
 
 def import_and_predict(image_data, model):
