@@ -3,15 +3,16 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
-github_repo_url = "https://github.com/ChingKyleTIP/Final-Project1"
+github_repo_url = "https://raw.githubusercontent.com/ChingKyleTIP/Final-Project1/main/"
 background_image = f"""
 <style>
     body {{
         background-image: url('{github_repo_url}Z6_Tokyo.jpg');
         background-size: cover;
     }}
-
 </style>
+"""
+
 """
 
 # Display the background image
