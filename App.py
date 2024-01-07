@@ -24,13 +24,7 @@ def import_and_predict(image_data, model):
     
     img = np.asarray(image)
     img_reshape = img[np.newaxis, ...]
-    
-    try:
-        prediction = model.predict(img_reshape)
-        return prediction
-    except Exception as e:
-        st.error(f"Error making predictions: {e}")
-        return None
+
 
 def main():
     st.write("# World of Lego toys classifier")
