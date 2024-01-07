@@ -7,7 +7,7 @@ import numpy as np
 background_image = """
 <style>
     body {
-        background-image: url('Z6_Tokyo.jpg');
+        background-image: url('https://www.lego.com/cdn/cs/set/assets/blt825bd369b4d1e4be/Z6_Tokyo.jpg');
         background-size: cover;
     }
 </style>
@@ -16,9 +16,6 @@ background_image = """
 # Display the background image
 st.markdown(background_image, unsafe_allow_html=True)
 
-# Your Streamlit app content goes here
-st.title("My Streamlit App")
-st.write("This is the content of my Streamlit app.")
 
 @st.cache(allow_output_mutation=True)
 def load_model():
