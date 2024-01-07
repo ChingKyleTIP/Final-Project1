@@ -56,9 +56,8 @@ def main():
                 class_names = ['harry-potter', 'starwars', 'jurassic-world', 'marvel']
                 output_class = class_names[np.argmax(prediction)]
                 st.success(f"OUTPUT: {output_class}")
-print(model.summary())
 
 if __name__ == "__main__":
     main()
 
-
+print(model.summary())
