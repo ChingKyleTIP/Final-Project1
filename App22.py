@@ -2,6 +2,7 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
+import io
 
 # Function to load the pre-trained model
 @st.cache(allow_output_mutation=True)
