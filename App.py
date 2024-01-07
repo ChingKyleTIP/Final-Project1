@@ -31,9 +31,6 @@ def import_and_predict(image_data, model):
     except Exception as e:
         st.error(f"Error making predictions: {e}")
         return None
-        
-if prediction is not None:
-    st.write("Predictions:", prediction)
 
 def main():
     st.write("# World of Lego toys classifier")
