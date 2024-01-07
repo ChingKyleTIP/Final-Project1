@@ -1,6 +1,6 @@
 import streamlit as st
 import tensorflow as tf
-import cv2
+
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -12,6 +12,7 @@ st.write("""
 )
 file=st.file_uploader("Choose plant photo from computer",type=["jpg","png"])
 
+import cv2
 from PIL import Image,ImageOps
 import numpy as np
 def import_and_predict(image_data,model):
