@@ -44,11 +44,18 @@ def main():
         if model is not None:
             image = Image.open(file)
             st.image(image, use_column_width=True)
+            
+            # Debug: Print some information
+            st.write(f"Image Size: {image.size}")
+            st.write(f"Image Mode: {image.mode}")
+
             prediction = import_and_predict(image, model)
             if prediction is not None:
+                st.write("Predictions:", prediction)
+
                 class_names = ['harry-potter', 'starwars', 'jurassic-world', 'marvel']
                 output_class = class_names[np.argmax(prediction)]
                 st.success(f"OUTPUT: {output_class}")
-
+                
 if __name__ == "__main__":
     main()
