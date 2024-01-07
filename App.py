@@ -4,11 +4,11 @@ from PIL import Image, ImageOps
 import numpy as np
 
 # Use the Raw GitHub Content URL for the image
-github_repo_url = "https://raw.githubusercontent.com/ChingKyleTIP/Final-Project1/main/"
+image_url = "https://raw.githubusercontent.com/ChingKyleTIP/Final-Project1/main/Z6_Tokyo.jpg"
 background_image = f"""
 <style>
     body {{
-        background-image: url('{github_repo_url}Z6_Tokyo.jpg');
+        background-image: url('{image_url}');
         background-size: cover;
     }}
 </style>
