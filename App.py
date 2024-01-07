@@ -46,7 +46,7 @@ def main():
             st.write("Raw Predictions:", prediction)
 
             if prediction is not None:
-                class_names = ['1', '2', '3', '4']
+                class_names = ['harry-potter', 'jurassic-world', 'marvel', 'star-wars']
                 output_class = class_names[np.argmax(prediction)]
                 st.success(f"OUTPUT: {output_class}")
 
