@@ -23,35 +23,13 @@ file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "p
 # Function to preprocess the image and make predictions
 def import_and_predict(image_data, model):
     size = (64, 64)
-
-    try:
-        # Open the image using PIL
-        image = Image.open(image_data)
-
-        # Convert the image to grayscale if needed
-        if image.mode != 'L':
-            image = image.convert('L')
-
-        # Resize the image
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
-
-        # Convert the image to a numpy array
-        img = np.asarray(image)
-
-        # Normalize the pixel values to be between 0 and 1
-        img = img / 255.0
-
-        # Reshape the image for model input
-        img_reshape = img[np.newaxis, ..., np.newaxis]
-
-        # Make predictions using the loaded model
-        prediction = model.predict(img_reshape)
-
-        return prediction
-
-    except Exception as e:
-        st.error(f"Error processing the image: {str(e)}")
-        return None
+    # Resize and preprocess the image
+    image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+    img = np.asarray(image)
+    img_reshape = img[np.newaxis, ...]
+    # Make predictions using the loaded model
+    prediction = model.predict(img_reshape)
+    return prediction
 
 # Check if a file is uploaded
 if file is None:
@@ -62,12 +40,13 @@ else:
     st.image(image, use_column_width=True)
     
     # Make predictions and display the result
-    prediction = import_and_predict(file, model)
+    prediction = import_and_predict(image, model)
     
     # Define class names
     class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
     
     # Create the result string
-    if prediction is not None:
-        result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-        st.success(result_string)
+    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    
+    # Display the result
+    st.success(result_string)
