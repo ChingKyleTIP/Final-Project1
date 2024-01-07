@@ -9,7 +9,7 @@ def load_model():
     return model
 
 def import_and_predict(image_data, model):
-    size = (64, 64)
+    size = (80, 80)
     
     try:
         image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
