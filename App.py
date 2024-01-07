@@ -1,17 +1,24 @@
 import streamlit as st
 import tensorflow as tf
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps  # Add this line
 import numpy as np
 
-
 @st.cache(allow_output_mutation=True)
+def load_model():
+    model_path = 'best_model.hdf5'
+    try:
+        model = tf.keras.models.load_model(model_path, compile=False)
+        return model
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+        return None
+
 def import_and_predict(image_data, model):
     size = (64, 64)
     
     try:
         image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
     except AttributeError:
-        # Handle the case where ImageOps.fit raises an AttributeError
         st.error("Error processing the image. Please try again with a different image.")
         return None
     
@@ -25,14 +32,6 @@ def import_and_predict(image_data, model):
         st.error(f"Error making predictions: {e}")
         return None
 
-def import_and_predict(image_data, model):
-    size = (64, 64)
-    image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
-    img = np.asarray(image)
-    img_reshape = img[np.newaxis, ...]
-    prediction = model.predict(img_reshape)
-    return prediction
-
 def main():
     st.write("# World of Lego toys classifier")
 
@@ -42,12 +41,14 @@ def main():
         st.text("Please upload an image file")
     else:
         model = load_model()
-        image = Image.open(file)
-        st.image(image, use_column_width=True)
-        prediction = import_and_predict(image, model)
-        class_names = ['harry-potter', 'starwars', 'jurassic-world', 'marvel']
-        output_class = class_names[np.argmax(prediction)]
-        st.success(f"OUTPUT: {output_class}")
+        if model is not None:
+            image = Image.open(file)
+            st.image(image, use_column_width=True)
+            prediction = import_and_predict(image, model)
+            if prediction is not None:
+                class_names = ['harry-potter', 'starwars', 'jurassic-world', 'marvel']
+                output_class = class_names[np.argmax(prediction)]
+                st.success(f"OUTPUT: {output_class}")
 
 if __name__ == "__main__":
     main()
