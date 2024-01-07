@@ -1,6 +1,6 @@
 import streamlit as st
 import tensorflow as tf
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFilter
 import numpy as np
 
 @st.cache(allow_output_mutation=True)
@@ -17,7 +17,7 @@ st.write("""
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
 
 def import_and_predict(image_data, model):
-    size = (128, 128)
+    size = (64, 64)
 
     try:
         # Open the image using PIL
@@ -25,7 +25,13 @@ def import_and_predict(image_data, model):
 
         if image.mode != 'L':
             image = image.convert('L')
+        
+        # Resize the image using ImageOps
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
+
+        # Alternatively, you can resize the image using ImageFilter
+        # image = image.resize(size, Image.ANTIALIAS)
+
         img = np.asarray(image)
         img = img / 255.0
         img_reshape = img[np.newaxis, ..., np.newaxis]
