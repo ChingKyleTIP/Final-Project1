@@ -24,30 +24,35 @@ file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "p
 def import_and_predict(image_data, model):
     size = (64, 64)
 
-    # Open the image using PIL
-    image = Image.open(image_data)
+    try:
+        # Open the image using PIL
+        image = Image.open(image_data)
 
-    # Convert the image to grayscale if needed
-    if image.mode != 'L':
-        image = image.convert('L')
+        # Convert the image to grayscale if needed
+        if image.mode != 'L':
+            image = image.convert('L')
 
-    # Resize the image
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        # Resize the image
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
 
-    # Convert the image to a numpy array
-    img = np.asarray(image)
+        # Convert the image to a numpy array
+        img = np.asarray(image)
 
-    # Normalize the pixel values to be between 0 and 1
-    img = img / 255.0
+        # Normalize the pixel values to be between 0 and 1
+        img = img / 255.0
 
-    # Reshape the image for model input
-    img_reshape = img[np.newaxis, ..., np.newaxis]
+        # Reshape the image for model input
+        img_reshape = img[np.newaxis, ..., np.newaxis]
 
-    # Make predictions using the loaded model
-    prediction = model.predict(img_reshape)
+        # Make predictions using the loaded model
+        prediction = model.predict(img_reshape)
 
-    return prediction
-# Check if a file is uploaded
+        return prediction
+
+    except Exception as e:
+        st.error(f"Error processing the image: {str(e)}")
+        return None
+
 if file is None:
     st.text("Please upload an image file.")
 else:
