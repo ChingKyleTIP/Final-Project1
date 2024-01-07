@@ -25,8 +25,11 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
+        # Convert the image data to bytes
+        image_bytes = image_data.read()
+
         # Open the image using PIL
-        image = Image.open(image_data)
+        image = Image.open(io.BytesIO(image_bytes))
 
         # Convert the image to grayscale if needed
         if image.mode != 'L':
@@ -64,7 +67,7 @@ else:
     prediction = import_and_predict(image, model)
     
     # Define class names
-    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+    class_names = ['marvel(1)','harry-potter(2)','star-wars(3)','jurassic-world(4)']
     
     # Create the result string
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
