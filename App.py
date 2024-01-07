@@ -10,7 +10,7 @@ github_repo_url = "https://raw.githubusercontent.com/ChingKyleTIP/Final-Project1
 background_image = f"""
 <style>
     body {{
-        background-image: url('{github_repo_url}Z6_Tokyo.jpg');
+        background-image: url('https://github.com/ChingKyleTIP/Final-Project1/blob/main/Z6_Tokyo.jpg');
         background-size: cover;
     }}
 </style>
