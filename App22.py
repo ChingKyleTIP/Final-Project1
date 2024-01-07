@@ -20,11 +20,8 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Convert the image data to bytes
-        image_bytes = image_data.read()
-
         # Open the image using PIL
-        image = Image.open(image_bytes)
+        image = Image.open(image_data)
 
         if image.mode != 'L':
             image = image.convert('L')
@@ -43,7 +40,7 @@ if file is None:
 else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    prediction = import_and_predict(file, model)
+    prediction = import_and_predict(image, model)
     class_names = ['marvel(1)',
                    'harry-potter(2)',
                    'star-wars(3)',
