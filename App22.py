@@ -15,17 +15,14 @@ st.write("""
 """)
 
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
-
 def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Open the image using PIL
         image = Image.open(image_data)
-
         if image.mode != 'L':
             image = image.convert('L')
-
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
         img = np.asarray(image)
         img = img / 255.0
         img_reshape = img[np.newaxis, ..., np.newaxis]
@@ -40,11 +37,10 @@ if file is None:
 else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    prediction = import_and_predict(file, model)
-
-    if prediction is not None:
-        class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
-        result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-        st.success(result_string)
-    else:
-        st.error("Failed to make a prediction. Please check the uploaded image.")
+    prediction = import_and_predict(image, model)
+    class_names = ['marvel(1)',
+                   'harry-potter(2)',
+                   'star-wars(3)',
+                   'jurassic-world(4)']
+    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    st.success(result_string)
