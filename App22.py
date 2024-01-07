@@ -25,15 +25,18 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
+        # Open the image using PIL
+        image = Image.open(image_data)
+
         # Convert the image to grayscale if needed
-        if image_data.mode != 'L':
-            image_data = image_data.convert('L')
+        if image.mode != 'L':
+            image = image.convert('L')
 
         # Resize the image
-        image_data = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
 
         # Convert the image to a numpy array
-        img = np.asarray(image_data)
+        img = np.asarray(image)
 
         # Normalize the pixel values to be between 0 and 1
         img = img / 255.0
