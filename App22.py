@@ -41,9 +41,10 @@ else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
     prediction = import_and_predict(file, model)
-    class_names = ['marvel(1)',
-                   'harry-potter(2)',
-                   'star-wars(3)',
-                   'jurassic-world(4)']
-    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-    st.success(result_string)
+
+    if prediction is not None:
+        class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+        result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
+        st.success(result_string)
+    else:
+        st.error("Failed to make a prediction. Please check the uploaded image.")
