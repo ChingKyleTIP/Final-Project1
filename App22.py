@@ -21,23 +21,19 @@ st.write("""
 # File uploader for image selection
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
 
-# Function to preprocess the image and make predictions
 def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Open the image using PIL
-        image = Image.open(image_data)
-
         # Convert the image to grayscale if needed
-        if image.mode != 'L':
-            image = image.convert('L')
+        if image_data.mode != 'L':
+            image_data = image_data.convert('L')
 
         # Resize the image
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        image_data = ImageOps.fit(image_data, size, Image.ANTIALIAS)
 
         # Convert the image to a numpy array
-        img = np.asarray(image)
+        img = np.asarray(image_data)
 
         # Normalize the pixel values to be between 0 and 1
         img = img / 255.0
@@ -54,8 +50,6 @@ def import_and_predict(image_data, model):
         st.error(f"Error processing the image: {str(e)}")
         return None
 
-
-# Check if a file is uploaded
 if file is None:
     st.text("Please upload an image file.")
 else:
