@@ -24,9 +24,10 @@ def import_and_predict(image_data,model):
 if file is None:
     st.text("Please upload an image file")
 else:
-    image=Image.open(file)
-    st.image(image,use_column_width=True)
-    prediction=import_and_predict(image,model)
-    class_names = ['harry-potter', 'jurassic-park', 'marvel', 'star-wars'
-    output_class = class_names[np.argmax(prediction)]
+    image = Image.open(file)
+    st.image(image, use_column_width=True)
+    prediction = import_and_predict(image, model)
+    if prediction is not None:
+        class_names = ['harry-potter', 'jurassic-park', 'marvel', 'star-wars']
+        output_class = class_names[np.argmax(prediction)]
         st.success(f"OUTPUT: {output_class}")
