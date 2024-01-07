@@ -47,8 +47,8 @@ def main():
             prediction = import_and_predict(image, model)
             if prediction is not None:
                 class_names = ['harry-potter', 'starwars', 'jurassic-world', 'marvel']
-                output_class = class_names[np.argmax(prediction)]
-                st.success(f"OUTPUT: {output_class}")
+                tring="OUTPUT : "+class_names[np.argmax(prediction)]
+                st.success(string)
 
 if __name__ == "__main__":
     main()
