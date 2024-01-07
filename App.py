@@ -12,13 +12,13 @@ import tensorflow as tf
 
 @st.cache(allow_output_mutation=True)
 def load_model():
-  model=tf.keras.models.load_model('item.hdf5')
+  model=tf.keras.models.load_model('best_model.hdf5')
   return model
 model=load_model()
 st.write("""
-# Grocery Item Classsifier"""
+# World of Lego toys classifier"""
 )
-file=st.file_uploader("Upload a grocery Item from your computer",type=["jpg","png"])
+file=st.file_uploader("Upload a Lego model from your computer",type=["jpg","png"])
 
 import cv2
 from PIL import Image,ImageOps
@@ -36,6 +36,6 @@ else:
     image=Image.open(file)
     st.image(image,use_column_width=True)
     prediction=import_and_predict(image,model)
-    class_names=['Fruit','Packages','Vegetables']
+    class_names=['harry-potter','starwars','jurassic-world','marvel']
     string="OUTPUT : "+class_names[np.argmax(prediction)]
     st.success(string)
