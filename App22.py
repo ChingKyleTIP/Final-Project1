@@ -22,13 +22,9 @@ def import_and_predict(image_data, model):
     try:
         # Open the image using PIL
         image = Image.open(image_data)
-        large_arr = np.fromfunction(lambda x, y, z: (x+y)//(z+1),
-                            (256, 256, 3)).astype(np.uint8)
-        large_img = PIL.Image.fromarray(large_arr)
 
         if image.mode != 'L':
             image = image.convert('L')
-
 
         img = np.asarray(image)
         img = img / 255.0
