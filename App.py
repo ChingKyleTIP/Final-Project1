@@ -3,6 +3,7 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
+# Use the Raw GitHub Content URL for the image
 github_repo_url = "https://raw.githubusercontent.com/ChingKyleTIP/Final-Project1/main/"
 background_image = f"""
 <style>
@@ -11,8 +12,6 @@ background_image = f"""
         background-size: cover;
     }}
 </style>
-"""
-
 """
 
 # Display the background image
