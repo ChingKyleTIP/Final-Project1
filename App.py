@@ -58,6 +58,6 @@ def main():
                 st.success(f"OUTPUT: {output_class}")
                 
 if __name__ == "__main__":
-    run()
+    main()
 
 
