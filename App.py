@@ -9,22 +9,35 @@ def load_model():
     return model
 
 def import_and_predict(image_data, model):
-    size = (80, 80)
-    
+    size = (64, 64)
+
     try:
-        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
-    except AttributeError:
-        st.error("Error processing the image. Please try again with a different image.")
-        return None
-    
-    img = np.asarray(image)
-    img_reshape = img[np.newaxis, ...]
-    
-    try:
+        # Open the image using PIL
+        image = Image.open(image_data)
+
+        # Convert the image to grayscale if needed
+        if image.mode != 'L':
+            image = image.convert('L')
+
+        # Resize the image
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
+
+        # Convert the image to a numpy array
+        img = np.asarray(image)
+
+        # Normalize the pixel values to be between 0 and 1
+        img = img / 255.0
+
+        # Reshape the image for model input
+        img_reshape = img[np.newaxis, ..., np.newaxis]
+
+        # Make predictions using the loaded model
         prediction = model.predict(img_reshape)
+
         return prediction
+
     except Exception as e:
-        st.error(f"Error making predictions: {e}")
+        st.error(f"Error processing the image: {str(e)}")
         return None
 
 def main():
