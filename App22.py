@@ -17,7 +17,7 @@ st.write("""
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
 
 def import_and_predict(image_data, model):
-    size = (128, 128)
+    size = (64, 64)
 
     try:
         # Open the image using PIL
@@ -26,8 +26,6 @@ def import_and_predict(image_data, model):
         if image.mode != 'L':
             image = image.convert('L')
 
-        # Resize the image using thumbnail
-        image.thumbnail(size, Image.ANTIALIAS)
 
         img = np.asarray(image)
         img = img / 255.0
