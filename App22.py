@@ -26,11 +26,8 @@ def import_and_predict(image_data, model):
         if image.mode != 'L':
             image = image.convert('L')
         
-        # Resize the image using ImageOps
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
-
-        # Alternatively, you can resize the image using ImageFilter
-        # image = image.resize(size, Image.ANTIALIAS)
+        # Resize the image using ImageFilter
+        image = image.resize(size, ImageFilter.ANTIALIAS)
 
         img = np.asarray(image)
         img = img / 255.0
