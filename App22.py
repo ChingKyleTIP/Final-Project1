@@ -1,6 +1,6 @@
 import streamlit as st
 import tensorflow as tf
-from PIL import Image, ImageOps, ImageFilter
+from PIL import Image, ImageOps
 import numpy as np
 
 @st.cache(allow_output_mutation=True)
@@ -25,9 +25,9 @@ def import_and_predict(image_data, model):
 
         if image.mode != 'L':
             image = image.convert('L')
-        
-        # Resize the image using ImageFilter
-        image = image.resize(size, ImageFilter.ANTIALIAS)
+
+        # Resize the image using thumbnail
+        image.thumbnail(size, Image.ANTIALIAS)
 
         img = np.asarray(image)
         img = img / 255.0
