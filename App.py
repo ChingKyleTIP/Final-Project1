@@ -3,13 +3,15 @@ import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
 
+github_repo_url = "https://github.com/ChingKyleTIP/Final-Project1/edit/main"
+
 # Add background image CSS
-background_image = """
+background_image = f"""
 <style>
-    body {
-        background-image: url('https://www.lego.com/cdn/cs/set/assets/blt825bd369b4d1e4be/Z6_Tokyo.jpg');
+    body {{
+        background-image: url('{Final-Project1}Z6_Tokyo.jpg');
         background-size: cover;
-    }
+    }}
 </style>
 """
 
