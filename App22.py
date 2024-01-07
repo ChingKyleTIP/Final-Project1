@@ -2,7 +2,6 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
-import io
 
 # Function to load the pre-trained model
 @st.cache(allow_output_mutation=True)
@@ -26,11 +25,8 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Convert the image data to bytes
-        image_bytes = image_data.read()
-
         # Open the image using PIL
-        image = Image.open(io.BytesIO(image_bytes))
+        image = Image.open(image_data)
 
         # Convert the image to grayscale if needed
         if image.mode != 'L':
@@ -57,6 +53,7 @@ def import_and_predict(image_data, model):
         st.error(f"Error processing the image: {str(e)}")
         return None
 
+# Check if a file is uploaded
 if file is None:
     st.text("Please upload an image file.")
 else:
@@ -65,13 +62,12 @@ else:
     st.image(image, use_column_width=True)
     
     # Make predictions and display the result
-    prediction = import_and_predict(image, model)
+    prediction = import_and_predict(file, model)
     
     # Define class names
-    class_names = ['marvel(1)','harry-potter(2)','star-wars(3)','jurassic-world(4)']
+    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
     
     # Create the result string
-    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-    
-    # Display the result
-    st.success(result_string)
+    if prediction is not None:
+        result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
+        st.success(result_string)
