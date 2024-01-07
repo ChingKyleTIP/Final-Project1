@@ -6,8 +6,12 @@ import numpy as np
 @st.cache(allow_output_mutation=True)
 def load_model():
     model_path = 'best_model.hdf5'
-    model = tf.keras.models.load_model(model_path, compile=False)
-    return model
+    try:
+        model = tf.keras.models.load_model(model_path, compile=False)
+        return model
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+        return None
 
 def import_and_predict(image_data, model):
     size = (64, 64)
