@@ -9,17 +9,29 @@ def load_model():
     try:
         model = tf.keras.models.load_model(model_path, compile=False)
         return model
+    except Exception as e:
+        st.error(f"Error loading the model: {e}")
+        return None
 
-def import_and_predict(image_data,model):
-    size=(64,64)
-    image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
-    img=np.asarray(image)
-    img_reshape=img[np.newaxis,...]
-    prediction=model.predict(img_reshape)
-    return prediction
-if file is None:
-    st.text("Please upload an image file")
+def import_and_predict(image_data, model):
+    size = (64, 64)
     
+    try:
+        image = ImageOps.fit(image_data, size, Image.ANTIALIAS)
+    except AttributeError:
+        st.error("Error processing the image. Please try again with a different image.")
+        return None
+    
+    img = np.asarray(image)
+    img_reshape = img[np.newaxis, ...]
+    
+    try:
+        prediction = model.predict(img_reshape)
+        return prediction
+    except Exception as e:
+        st.error(f"Error making predictions: {e}")
+        return None
+
 def main():
     st.write("# World of Lego toys classifier")
 
@@ -35,8 +47,8 @@ def main():
             prediction = import_and_predict(image, model)
             if prediction is not None:
                 class_names = ['harry-potter', 'starwars', 'jurassic-world', 'marvel']
-                tring="OUTPUT : "+class_names[np.argmax(prediction)]
-                st.success(string)
+                output_class = class_names[np.argmax(prediction)]
+                st.success(f"OUTPUT: {output_class}")
 
 if __name__ == "__main__":
     main()
