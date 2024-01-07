@@ -22,6 +22,10 @@ def import_and_predict(image_data, model):
         st.error("Error processing the image. Please try again with a different image.")
         return None
     
+    # Debug: Print information about the processed image
+    st.write(f"Processed Image Size: {image.size}")
+    st.write(f"Processed Image Mode: {image.mode}")
+
     img = np.asarray(image)
     img_reshape = img[np.newaxis, ...]
     
