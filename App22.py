@@ -21,7 +21,7 @@ class_names = ['marvel(1)',
                'star-wars(3)',
                'jurassic-world(4)']
 
-def import_and_predict(image_data, model):
+def import_and_predict(image_data, model, class_names):
     size = (64, 64)
 
     try:
@@ -56,7 +56,7 @@ if file is None:
 else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    prediction = import_and_predict(file, model)
+    prediction = import_and_predict(file, model, class_names)
     
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(result_string)
