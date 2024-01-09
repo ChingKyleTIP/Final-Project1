@@ -58,12 +58,8 @@ else:
     st.image(image, use_column_width=True)
     prediction = import_and_predict(file, model, class_names)
     
-    # Check the shape and values of prediction for debugging
-    st.write("Class Names:", class_names)
-    st.write("Prediction Shape:", prediction.shape)
-    st.write("Prediction Values:", prediction)
-    
-    if np.argmax(prediction) < len(class_names):
+    # Check if the prediction index is within the valid range
+    if 0 <= np.argmax(prediction) < len(class_names):
         result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
         st.success(result_string)
     else:
