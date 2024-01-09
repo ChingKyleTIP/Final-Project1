@@ -56,6 +56,10 @@ else:
     
     # Check if the prediction index is within the valid range
     if 0 <= np.argmax(prediction) < len(class_names):
+        class_names = ['marvel(1)',
+                   'harry-potter(2)',
+                   'star-wars(3)',
+                   'jurassic-world(4)']
         result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
         st.success(result_string)
     else:
