@@ -50,15 +50,13 @@ def import_and_predict(image_data, model, class_names):
 if file is None:
     st.text("Please upload an image file.")
 else:
+else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    prediction = import_and_predict(file, model, class_names)
-    
-    # Check if the prediction index is within the valid range
-    if 0 <= np.argmax(prediction) < len(class_names):
-        class_names = ['marvel(1)',
+    prediction = import_and_predict(image, model)
+    class_names = ['marvel(1)',
                    'harry-potter(2)',
                    'star-wars(3)',
                    'jurassic-world(4)']
-        result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-        st.success(result_string)
+    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    st.success(result_string)
