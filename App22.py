@@ -1,8 +1,3 @@
-import streamlit as st
-import tensorflow as tf
-from PIL import Image, ImageOps
-import numpy as np
-
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model('weights.best.hdf5')
@@ -15,14 +10,18 @@ st.write("""
 """)
 
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
+
 def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
         image = Image.open(image_data)
-        if image.mode != '128, 128':
-            image = image.convert('128, 128')
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        # Resize the image to (64, 64) using the 'resize' method
+        image = image.resize(size)
+        
+        # Convert the image to grayscale if needed
+        image = ImageOps.grayscale(image)
+
         img = np.asarray(image)
         img = img / 255.0
         img_reshape = img[np.newaxis, ..., np.newaxis]
