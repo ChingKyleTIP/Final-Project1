@@ -34,11 +34,12 @@ def import_and_predict(image_data, model):
         img_array = tf.image.resize_with_crop_or_pad(img_array, target_height=64, target_width=64)
         
         prediction = model.predict(img_array)
+        st.write("Prediction Shape:", prediction.shape)
+        st.write("Prediction Values:", prediction)
         return prediction
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
         return None
-
 
 if file is None:
     st.text("Please upload an image file.")
@@ -47,13 +48,14 @@ else:
     st.image(image, use_column_width=True)
     prediction = import_and_predict(file, model)
     
-    # Print the prediction and its shape for debugging
-    st.write("Prediction:", prediction)
-    st.write("Prediction shape:", prediction.shape)
-    
     class_names = ['marvel(1)',
                    'harry-potter(2)',
                    'star-wars(3)',
                    'jurassic-world(4)']
+    
+    # Check the shape and values of prediction for debugging
+    st.write("Prediction Shape:", prediction.shape)
+    st.write("Prediction Values:", prediction)
+    
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(result_string)
