@@ -24,8 +24,8 @@ def import_and_predict(image_data, model):
         # Resize the image to (64, 64) using the 'resize' method
         image = image.resize(size)
         
-        # Convert the image to grayscale if needed
-        image = ImageOps.grayscale(image)
+        # Convert the image to grayscale
+        image = image.convert('L')
 
         img = np.asarray(image)
         img = img / 255.0
@@ -48,3 +48,4 @@ else:
                    'jurassic-world(4)']
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(result_string)
+
