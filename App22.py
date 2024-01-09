@@ -1,8 +1,3 @@
-import streamlit as st
-import tensorflow as tf
-from PIL import Image, ImageOps
-import numpy as np
-
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model('weights.best.hdf5')
@@ -27,10 +22,10 @@ def import_and_predict(image_data, model):
         # Convert the image to grayscale
         image = image.convert('L')
 
-        img = np.asarray(image)
-        img = img / 255.0
-        img_reshape = img[np.newaxis, ..., np.newaxis]
-        prediction = model.predict(img_reshape)
+        img_array = np.array(image)
+        img_array = img_array / 255.0
+        img_array = np.reshape(img_array, (1, 64, 64, 1))
+        prediction = model.predict(img_array)
         return prediction
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
@@ -48,4 +43,3 @@ else:
                    'jurassic-world(4)']
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(result_string)
-
