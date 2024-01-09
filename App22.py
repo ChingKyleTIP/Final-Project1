@@ -41,6 +41,11 @@ else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
     prediction = import_and_predict(file, model)
+    
+    # Print the prediction and its shape for debugging
+    st.write("Prediction:", prediction)
+    st.write("Prediction shape:", prediction.shape)
+    
     class_names = ['marvel(1)',
                    'harry-potter(2)',
                    'star-wars(3)',
