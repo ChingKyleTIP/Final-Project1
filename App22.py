@@ -1,3 +1,8 @@
+import streamlit as st
+import tensorflow as tf
+from PIL import Image
+import numpy as np
+
 @st.cache(allow_output_mutation=True)
 def load_model():
     model = tf.keras.models.load_model('weights.best.hdf5')
@@ -16,15 +21,14 @@ def import_and_predict(image_data, model):
 
     try:
         image = Image.open(image_data)
-        # Resize the image to (64, 64) using the 'resize' method
-        image = image.resize(size)
+        # Resize the image to (64, 64) using TensorFlow function
+        image = tf.image.resize(np.array(image), size)
         
-        # Convert the image to grayscale
-        image = image.convert('L')
+        # Convert the image to grayscale using TensorFlow function
+        image = tf.image.rgb_to_grayscale(image)
 
-        img_array = np.array(image)
-        img_array = img_array / 255.0
-        img_array = np.reshape(img_array, (1, 64, 64, 1))
+        img_array = tf.image.convert_image_dtype(image, tf.float32)
+        img_array = tf.expand_dims(img_array, 0)
         prediction = model.predict(img_array)
         return prediction
     except Exception as e:
@@ -36,7 +40,7 @@ if file is None:
 else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    prediction = import_and_predict(image, model)
+    prediction = import_and_predict(file, model)
     class_names = ['marvel(1)',
                    'harry-potter(2)',
                    'star-wars(3)',
