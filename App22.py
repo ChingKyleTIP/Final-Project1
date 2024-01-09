@@ -38,6 +38,7 @@ def import_and_predict(image_data, model):
         # Squeeze the prediction array to remove the singleton dimension
         prediction = np.squeeze(prediction)
         
+        st.write("Class Names:", class_names)
         st.write("Prediction Shape:", prediction.shape)
         st.write("Prediction Values:", prediction)
         return prediction
