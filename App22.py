@@ -16,6 +16,11 @@ st.write("""
 
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
 
+class_names = ['marvel(1)',
+               'harry-potter(2)',
+               'star-wars(3)',
+               'jurassic-world(4)']
+
 def import_and_predict(image_data, model):
     size = (64, 64)
 
@@ -37,11 +42,6 @@ def import_and_predict(image_data, model):
         
         # Squeeze the prediction array to remove the singleton dimension
         prediction = np.squeeze(prediction)
-        
-        class_names = ['marvel(1)',
-                       'harry-potter(2)',
-                       'star-wars(3)',
-                       'jurassic-world(4)']
         
         st.write("Class Names:", class_names)
         st.write("Prediction Shape:", prediction.shape)
