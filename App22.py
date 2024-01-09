@@ -20,8 +20,8 @@ def import_and_predict(image_data, model):
 
     try:
         image = Image.open(image_data)
-        if image.mode != 'L':
-            image = image.convert('L')
+        if image.mode != '128, 128':
+            image = image.convert('128, 128')
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
         img = np.asarray(image)
         img = img / 255.0
