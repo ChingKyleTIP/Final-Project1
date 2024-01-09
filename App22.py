@@ -40,12 +40,8 @@ def import_and_predict(image_data, model, class_names):
         
         prediction = model.predict(img_array)
         
-        # Squeeze the prediction array to remove the singleton dimension
         prediction = np.squeeze(prediction)
         
-        st.write("Class Names:", class_names)
-        st.write("Prediction Shape:", prediction.shape)
-        st.write("Prediction Values:", prediction)
         return prediction
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
