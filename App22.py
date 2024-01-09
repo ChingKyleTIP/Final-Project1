@@ -34,6 +34,10 @@ def import_and_predict(image_data, model):
         img_array = tf.image.resize_with_crop_or_pad(img_array, target_height=64, target_width=64)
         
         prediction = model.predict(img_array)
+        
+        # Squeeze the prediction array to remove the singleton dimension
+        prediction = np.squeeze(prediction)
+        
         st.write("Prediction Shape:", prediction.shape)
         st.write("Prediction Values:", prediction)
         return prediction
@@ -52,10 +56,6 @@ else:
                    'harry-potter(2)',
                    'star-wars(3)',
                    'jurassic-world(4)']
-    
-    # Check the shape and values of prediction for debugging
-    st.write("Prediction Shape:", prediction.shape)
-    st.write("Prediction Values:", prediction)
     
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(result_string)
