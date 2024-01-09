@@ -38,6 +38,11 @@ def import_and_predict(image_data, model):
         # Squeeze the prediction array to remove the singleton dimension
         prediction = np.squeeze(prediction)
         
+        class_names = ['marvel(1)',
+                       'harry-potter(2)',
+                       'star-wars(3)',
+                       'jurassic-world(4)']
+        
         st.write("Class Names:", class_names)
         st.write("Prediction Shape:", prediction.shape)
         st.write("Prediction Values:", prediction)
@@ -52,11 +57,6 @@ else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
     prediction = import_and_predict(file, model)
-    
-    class_names = ['marvel(1)',
-                   'harry-potter(2)',
-                   'star-wars(3)',
-                   'jurassic-world(4)']
     
     result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(result_string)
