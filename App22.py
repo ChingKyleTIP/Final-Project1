@@ -37,9 +37,7 @@ def import_and_predict(image_data, model):
         prediction = model.predict(img_reshape)
 
         return prediction
-    except Exception as e:
-        st.error(f"Error processing the image: {str(e)}")
-        return None
+
 
 if file is None:
     st.text("Please upload an image file")
