@@ -27,7 +27,7 @@ def import_and_predict(image_data, model):
     except Exception as e:
         return None
 
-if file is not None:
+if file is None:
     st.text("Please upload an image file")
 else:
     st.image(file, use_column_width=True)
