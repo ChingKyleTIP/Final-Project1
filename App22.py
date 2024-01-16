@@ -25,23 +25,18 @@ def import_and_predict(image_data, model, class_names):
     size = (64, 64)
 
     try:
+
         image = Image.open(image_data)
-        # Resize the image to (64, 64) using TensorFlow function
-        image = tf.image.resize(np.array(image), size)
-
-        # Convert the image to grayscale using TensorFlow function
-        image = tf.image.rgb_to_grayscale(image)
-
-        img_array = tf.image.convert_image_dtype(image, tf.float32)
+        image_array = np.array(image)
+        image_array = tf.image.resize(image_array, size)
+        image_array = tf.image.rgb_to_grayscale(image_array)
+        img_array = tf.image.convert_image_dtype(image_array, tf.float32)
         img_array = tf.expand_dims(img_array, 0)
-        
-        # Reshape the image array to match the model input shape
         img_array = tf.image.resize_with_crop_or_pad(img_array, target_height=64, target_width=64)
-        
+
         prediction = model.predict(img_array)
-        
         prediction = np.squeeze(prediction)
-        
+
         return prediction
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
