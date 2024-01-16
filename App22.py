@@ -2,6 +2,7 @@ import streamlit as st
 import tensorflow as tf
 from PIL import Image, ImageOps
 import numpy as np
+from io import BytesIO
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -20,12 +21,12 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Open the image using Image.open
-        image = Image.open(image_data)
+        # Use BytesIO to handle the image data
+        image_stream = BytesIO(image_data.read())
         
-        # Convert the image to a bytes-like object
-        image_bytes = st.image_to_byte_array(image)
-
+        # Open the image using Image.open
+        image = Image.open(image_stream)
+        
         # Use ImageOps.fit to resize the image while maintaining the aspect ratio
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
 
@@ -42,13 +43,13 @@ def import_and_predict(image_data, model):
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
         return None
-        
+
 if file is None:
     st.text("Please upload an image file")
 else:
     image = Image.open(file)
     st.image(image, use_column_width=True)
-    prediction = import_and_predict(image, model)
+    prediction = import_and_predict(file, model)
     class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
     string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(string)
