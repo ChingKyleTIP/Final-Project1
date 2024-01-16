@@ -32,6 +32,10 @@ def import_and_predict(image_data, model):
         # Add a new axis to match the model's expected input shape
         img_reshape = img[np.newaxis, ...]
 
+        # Ensure the image has three channels (RGB)
+        if img_reshape.shape[-1] == 1:
+            img_reshape = np.concatenate([img_reshape] * 3, axis=-1)
+
         # Make the prediction
         prediction = model.predict(img_reshape)
 
@@ -39,6 +43,7 @@ def import_and_predict(image_data, model):
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
         return None
+
 
 if file is not None:
     st.image(file, use_column_width=True)
