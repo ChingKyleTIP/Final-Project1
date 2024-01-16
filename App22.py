@@ -36,7 +36,9 @@ def import_and_predict(image_data, model):
         prediction = model.predict(img_reshape)
 
         return prediction
-
+    except Exception as e:
+        return None
+        
 if file is not None:
     st.image(file, use_column_width=True)
     prediction = import_and_predict(file, model)
