@@ -36,10 +36,12 @@ def import_and_predict(image_data, model):
         prediction = model.predict(img_reshape)
 
         return prediction
-    except Exception as e:
-        return None
 
-if file is not None:
+if file is None:
+    st.text("Please upload an image file")
+
+else:
+    
     st.image(file, use_column_width=True)
     prediction = import_and_predict(file, model)
     class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
