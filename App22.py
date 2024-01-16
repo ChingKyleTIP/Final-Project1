@@ -37,7 +37,7 @@ def import_and_predict(image_data, model):
 
         return prediction
     except Exception as e:
-        st.error(f"Error processing the image: {str(e)}")
+        st.error("")
         return None
 
 if file is not None:
