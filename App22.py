@@ -38,10 +38,9 @@ def import_and_predict(image_data, model):
         return prediction
 
 if file is None:
-    st.text("Please upload an image file")
+st.text("Please upload an image file")
 
 else:
-    
     st.image(file, use_column_width=True)
     prediction = import_and_predict(file, model)
     class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
