@@ -15,32 +15,33 @@ st.write("""
 """)
 
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
+
 def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
+        # Open the image using ImageOps
         image = Image.open(image_data)
-        if image.mode != 'L':
-            image = image.convert('L')
+        
+        # Use ImageOps.fit to resize the image while maintaining the aspect ratio
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
+
+        # Convert the resized image to a numpy array
         img = np.asarray(image)
-        img = img / 255.0
-        img_reshape = img[np.newaxis, ..., np.newaxis]
+        
+        # Add a new axis to match the model's expected input shape
+        img_reshape = img[np.newaxis, ...]
+
+        # Make the prediction
         prediction = model.predict(img_reshape)
+
         return prediction
     except Exception as e:
-        st.error(f"Error processing the image: {str(e)}")
         return None
 
-if file is None:
-    st.text("Please upload an image file.")
-else:
-    image = Image.open(file)
-    st.image(image, use_column_width=True)
-    prediction = import_and_predict(image, model)
-    class_names = ['marvel(1)',
-                   'harry-potter(2)',
-                   'star-wars(3)',
-                   'jurassic-world(4)']
-    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-    st.success(result_string)
+if file is not None:
+    st.image(file, use_column_width=True)
+    prediction = import_and_predict(file, model)
+    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+    string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    st.success(string)
