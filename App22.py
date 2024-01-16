@@ -37,6 +37,7 @@ def import_and_predict(image_data, model):
 
         return prediction
     except Exception as e:
+        st.error(f"Error processing the image: {str(e)}")
         return None
 
 if file is not None:
@@ -48,4 +49,7 @@ if file is not None:
             if prediction is not None:
                 string = "OUTPUT: " + class_names[np.argmax(prediction)]
                 st.success(string)
-
+            else:
+                st.error("Prediction is None.")
+        except Exception as e:
+            st.error(f"Error during prediction: {str(e)}")
