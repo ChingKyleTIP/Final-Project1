@@ -21,7 +21,7 @@ def import_and_predict(image_data, model):
 
     try:
         # Open the image using Image.open
-        image = Image.open(image_data)
+        PIL.Image.open(image_path).convert('RGB')
         
         # Use ImageOps.fit to resize the image while maintaining the aspect ratio
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
