@@ -43,8 +43,6 @@ def import_and_predict(image_data, model):
             string = "OUTPUT: " + class_names[np.argmax(prediction)]
             st.success(string)
 
-        except Exception as e:
-            st.error(f"Error processing the image: {str(e)}")
 
 if __name__ == '__main__':
     import_and_predict(file, model)
