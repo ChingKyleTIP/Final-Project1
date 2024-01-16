@@ -19,30 +19,29 @@ file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "p
 def import_and_predict(image_data, model):
     size = (64, 64)
 
-    if file is None:
-        st.text("Please upload an image file")
-    else:
-        try:
-            # Open the image using ImageOps
-            image = Image.open(image_data)
-            
-            # Use ImageOps.fit to resize the image while maintaining the aspect ratio
-            image = ImageOps.fit(image, size, Image.ANTIALIAS)
+    try:
+        # Open the image using ImageOps
+        image = Image.open(image_data)
+        
+        # Use ImageOps.fit to resize the image while maintaining the aspect ratio
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
 
-            # Convert the resized image to a numpy array
-            img = np.asarray(image)
-            
-            # Add a new axis to match the model's expected input shape
-            img_reshape = img[np.newaxis, ...]
+        # Convert the resized image to a numpy array
+        img = np.asarray(image)
+        
+        # Add a new axis to match the model's expected input shape
+        img_reshape = img[np.newaxis, ...]
 
-            # Make the prediction
-            prediction = model.predict(img_reshape)
+        # Make the prediction
+        prediction = model.predict(img_reshape)
 
-            st.image(file, use_column_width=True)
-            class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
-            string = "OUTPUT: " + class_names[np.argmax(prediction)]
-            st.success(string)
+        return prediction
+    except Exception as e:
+        return None
 
-
-if __name__ == '__main__':
-    import_and_predict(file, model)
+if file is not None:
+    st.image(file, use_column_width=True)
+    prediction = import_and_predict(file, model)
+    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+    string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    st.success(string)
