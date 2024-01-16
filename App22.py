@@ -1,8 +1,7 @@
 import streamlit as st
 import tensorflow as tf
-from PIL import Image, ImageOps, ImageFilter
+from PIL import Image, ImageOps
 import numpy as np
-from io import BytesIO
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -37,10 +36,13 @@ def import_and_predict(image_data, model):
         prediction = model.predict(img_reshape)
 
         return prediction
+    except Exception as e:
+        st.error(f"Error processing the image: {str(e)}")
+        return None
 
-    else:
-        st.image(file, use_column_width=True)
-        prediction = import_and_predict(file, model)
-        class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
-        string = "OUTPUT: " + class_names[np.argmax(prediction)]
-        st.success(string)
+if file is not None:
+    st.image(file, use_column_width=True)
+    prediction = import_and_predict(file, model)
+    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+    string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    st.success(string)
