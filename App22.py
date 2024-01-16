@@ -47,12 +47,10 @@ if file is not None:
             if prediction is not None:
                 st.write("Raw Prediction Output:")
                 st.write(prediction)
-                
                 class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
                 result_class = class_names[np.argmax(prediction)]
                 st.success(f"Predicted Class: {result_class}")
             else:
-                st.write("Raw Prediction Output:")
                 st.write(prediction)
                 class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
                 result_class = class_names[np.argmax(prediction)]
