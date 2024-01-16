@@ -20,19 +20,10 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Open the image using ImageOps
         image = Image.open(image_data)
-        
-        # Use ImageOps.fit to resize the image while maintaining the aspect ratio
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
-
-        # Convert the resized image to a numpy array
         img = np.asarray(image)
-        
-        # Add a new axis to match the model's expected input shape
         img_reshape = img[np.newaxis, ...]
-
-        # Make the prediction
         prediction = model.predict(img_reshape)
 
         return prediction
@@ -40,6 +31,8 @@ def import_and_predict(image_data, model):
         return None
 
 if file is not None:
+    st.text("Please upload an image file")
+else:
     st.image(file, use_column_width=True)
     prediction = import_and_predict(file, model)
     class_names = ['harry-potter', 'marvel', 'star-wars', 'jurassic-world']
