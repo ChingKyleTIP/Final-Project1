@@ -49,4 +49,7 @@ if file is not None:
             if prediction is not None:
                 string = "OUTPUT: " + class_names[np.argmax(prediction)]
                 st.success(string)
-
+            else:
+                st.error("Prediction is None.")
+        except Exception as e:
+            st.error(f"Error during prediction: {str(e)}")
