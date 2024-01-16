@@ -19,7 +19,6 @@ class_names = ['marvel(1)',
                'star-wars(3)',
                'jurassic-world(4)']
 
-import cv2
 from PIL import Image,ImageOps
 import numpy as np
 def import_and_predict(image_data,model):
