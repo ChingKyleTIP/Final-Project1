@@ -20,11 +20,11 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-    image = Image.open(image_data)
-    image = ImageOps.fit(image, size, Image.ANTIALIAS)
-    img = np.asarray(image)
-    img_reshape = img[np.newaxis, ...]
-    prediction = model.predict(img_reshape)
+        image = Image.open(image_data)
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        img = np.asarray(image)
+        img_reshape = img[np.newaxis, ...]
+        prediction = model.predict(img_reshape)
         return prediction
     except Exception as e:
         st.error(f"Error processing the image: {str(e)}")
