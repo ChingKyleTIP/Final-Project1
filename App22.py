@@ -24,7 +24,7 @@ def import_and_predict(image_data, model):
         image = Image.open(image_data)
         
         # Use ImageOps.fit to resize the image while maintaining the aspect ratio
-        image = ImageOps.fit(image, size, Image.LANCZOS)
+        image = ImageOps.fit(image, size, Image.ANTIALIAS)
 
         # Convert the resized image to a numpy array
         img = np.asarray(image)
@@ -32,29 +32,16 @@ def import_and_predict(image_data, model):
         # Add a new axis to match the model's expected input shape
         img_reshape = img[np.newaxis, ...]
 
-        # Ensure the image has three channels (RGB)
-        if img_reshape.shape[-1] == 1:
-            img_reshape = np.concatenate([img_reshape] * 3, axis=-1)
-
         # Make the prediction
         prediction = model.predict(img_reshape)
 
         return prediction
     except Exception as e:
-        st.error(f"Error processing the image: {str(e)}")
         return None
-
 
 if file is not None:
     st.image(file, use_column_width=True)
-    if st.button("Predict"):
-        try:
-            prediction = import_and_predict(file, model)
-            class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
-            if prediction is not None:
-                string = "OUTPUT: " + class_names[np.argmax(prediction)]
-                st.success(string)
-            else:
-                st.error("Prediction is None.")
-        except Exception as e:
-            st.error(f"Error during prediction: {str(e)}")
+    prediction = import_and_predict(file, model)
+    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+    string = "OUTPUT: " + class_names[np.argmax(prediction)]
+    st.success(string)
