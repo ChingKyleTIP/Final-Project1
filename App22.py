@@ -51,5 +51,4 @@ if file is not None:
                 st.success(string)
             else:
                 st.error("Prediction is None.")
-        except Exception as e:
-            st.error(f"Error during prediction: {str(e)}")
+
