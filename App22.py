@@ -14,10 +14,6 @@ st.write("""
 
 file = st.file_uploader("Choose a toy photo from your computer", type=["jpg", "png"])
 
-class_names = ['marvel(1)',
-               'harry-potter(2)',
-               'star-wars(3)',
-               'jurassic-world(4)']
 
 from PIL import Image,ImageOps
 import numpy as np
@@ -30,10 +26,13 @@ def import_and_predict(image_data,model):
     return prediction
 if file is None:
     st.text("Please upload an image file")
-
 else:
-    image = Image.open(file)
-    st.image(image, use_column_width=True)
-    prediction = import_and_predict(image, model, class_names)
-    result_string = "OUTPUT: " + class_names[np.argmax(prediction)]
-    st.success(result_string)
+    image=Image.open(file)
+    st.image(image,use_column_width=True)
+    prediction=import_and_predict(image,model)
+    class_names = ['marvel(1)',
+               'harry-potter(2)',
+               'star-wars(3)',
+               'jurassic-world(4)']
+    string="OUTPUT : "+class_names[np.argmax(prediction)]
+    st.success(string)
