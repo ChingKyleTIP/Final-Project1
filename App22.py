@@ -41,7 +41,17 @@ def import_and_predict(image_data, model):
 
 if file is not None:
     st.image(file, use_column_width=True)
-    prediction = import_and_predict(file, model)
-    class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
-    string = "OUTPUT: " + class_names[np.argmax(prediction)]
-    st.success(string)
+    if st.button("Predict"):
+        try:
+            prediction = import_and_predict(file, model)
+            if prediction is not None:
+                st.write("Raw Prediction Output:")
+                st.write(prediction)
+                
+                class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
+                result_class = class_names[np.argmax(prediction)]
+                st.success(f"Predicted Class: {result_class}")
+            else:
+                st.error("Prediction is None.")
+        except Exception as e:
+            st.error(f"Error during prediction: {str(e)}")
