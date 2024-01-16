@@ -24,7 +24,7 @@ def import_and_predict(image_data, model):
         image = Image.open(image_data)
         
         # Use ImageOps.fit to resize the image while maintaining the aspect ratio
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        image = ImageOps.fit(image, size, Image.LANCZOS)
 
         # Convert the resized image to a numpy array
         img = np.asarray(image)
