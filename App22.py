@@ -1,6 +1,6 @@
 import streamlit as st
 import tensorflow as tf
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFilter
 import numpy as np
 from io import BytesIO
 
