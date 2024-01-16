@@ -1,7 +1,5 @@
 import streamlit as st
 import tensorflow as tf
-from PIL import Image
-import numpy as np
 
 @st.cache(allow_output_mutation=True)
 def load_model():
@@ -21,26 +19,19 @@ class_names = ['marvel(1)',
                'star-wars(3)',
                'jurassic-world(4)']
 
-def import_and_predict(image_data, model, class_names):
-    size = (64, 64)
+import cv2
+from PIL import Image,ImageOps
+import numpy as np
+def import_and_predict(image_data,model):
+    size=(64,64)
+    image=ImageOps.fit(image_data,size,Image.ANTIALIAS)
+    img=np.asarray(image)
+    img_reshape=img[np.newaxis,...]
+    prediction=model.predict(img_reshape)
+    return prediction
+if file is None:
+    st.text("Please upload an image file")
 
-    try:
-
-        image = Image.open(image_data)
-        image_array = np.array(image)
-        image_array = tf.image.resize(image_array, size)
-        image_array = tf.image.rgb_to_grayscale(image_array)
-        img_array = tf.image.convert_image_dtype(image_array, tf.float32)
-        img_array = tf.expand_dims(img_array, 0)
-        img_array = tf.image.resize_with_crop_or_pad(img_array, target_height=64, target_width=64)
-
-        prediction = model.predict(img_array)
-        prediction = np.squeeze(prediction)
-
-        return prediction
-    except Exception as e:
-        st.error(f"Error processing the image: {str(e)}")
-        return None
 
 if file is None:
     st.text("Please upload an image file.")
