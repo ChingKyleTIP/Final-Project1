@@ -42,7 +42,9 @@ def import_and_predict(image_data, model):
             class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
             string = "OUTPUT: " + class_names[np.argmax(prediction)]
             st.success(string)
-            
+
+        except Exception as e:
+            st.error(f"Error processing the image: {str(e)}")
 
 if __name__ == '__main__':
     import_and_predict(file, model)
