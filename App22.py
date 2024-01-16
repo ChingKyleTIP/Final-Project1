@@ -21,8 +21,8 @@ def import_and_predict(image_data, model):
     size = (64, 64)
 
     try:
-        # Read the image data as a NumPy array
-        image = Image.open(BytesIO(image_data.read()))
+        # Open the image using ImageOps
+        image = Image.open(image_data)
         
         # Use ImageOps.fit to resize the image while maintaining the aspect ratio
         image = ImageOps.fit(image, size, Image.ANTIALIAS)
@@ -44,8 +44,7 @@ def import_and_predict(image_data, model):
 if file is None:
     st.text("Please upload an image file")
 else:
-    image = Image.open(BytesIO(file.read()))
-    st.image(image, use_column_width=True)
+    st.image(file, use_column_width=True)
     prediction = import_and_predict(file, model)
     class_names = ['marvel(1)', 'harry-potter(2)', 'star-wars(3)', 'jurassic-world(4)']
     string = "OUTPUT: " + class_names[np.argmax(prediction)]
