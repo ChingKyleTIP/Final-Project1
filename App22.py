@@ -42,6 +42,6 @@ def import_and_predict(image_data, model):
 if file is not None:
     st.image(file, use_column_width=True)
     prediction = import_and_predict(file, model)
-    class_names = ['marvel', 'harry-potter', 'star-wars', 'jurassic-world']
+    class_names = ['harry-potter', 'marvel', 'star-wars', 'jurassic-world']
     string = "OUTPUT: " + class_names[np.argmax(prediction)]
     st.success(string)
